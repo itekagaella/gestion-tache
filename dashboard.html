@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Pulse</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="container">
+        <a href="dashboard.html" class="logo">
+          <div class="logo-icon">P</div>
+          <span class="logo-text">Pulse</span>
+        </a>
+        <div class="nav-links">
+          <button class="btn btn-danger btn-sm" onclick="handleLogout()">
+            Deconnexion
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="dashboard-header">
+      <div class="container">
+        <h1 id="page-title">Bonjour</h1>
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar">?</div>
+          <div>
+            <div class="user-name" id="user-name">-</div>
+            <div class="user-email" id="user-email">-</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="container fade-in">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total</div>
+          <div class="stat-value accent" id="stat-total">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">En cours</div>
+          <div class="stat-value pink" id="stat-active">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Terminees</div>
+          <div class="stat-value success" id="stat-done">0</div>
+        </div>
+      </div>
+
+      <section class="tasks-section">
+        <div class="section-header">
+          <h2>Mes taches</h2>
+          <div class="filters">
+            <button class="filter-btn active" id="filter-all">Toutes</button>
+            <button class="filter-btn" id="filter-active">En cours</button>
+            <button class="filter-btn" id="filter-done">Terminees</button>
+          </div>
+        </div>
+
+        <form id="add-task-form" class="add-task-form">
+          <input type="text" id="task-input" class="form-input" placeholder="Ajouter une nouvelle tache..." required>
+          <select id="task-tag">
+            <option value="personal">Personnel</option>
+            <option value="work">Travail</option>
+            <option value="urgent">Urgent</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+
+        <div class="task-list" id="task-list">
+          <div class="empty-state">
+            <div class="icon">&#128221;</div>
+            <h3>Chargement...</h3>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">Pulse &copy; 2026</div>
+    </footer>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>initDashboard();</script>
+</body>
+</html>

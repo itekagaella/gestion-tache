@@ -1,0 +1,9 @@
+{
+  "name": "pulse",
+  "version": "1.0.0",
+  "description": "Pulse - Dashboard personnel moderne",
+  "scripts": {
+    "serve": "npx serve .",
+    "open": "npx serve . --open"
+  }
+}

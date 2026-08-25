@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse - Votre espace productif</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">P</div>
+          <span class="logo-text">Pulse</span>
+        </a>
+        <div class="nav-links">
+          <a href="login.html" class="btn btn-ghost">Connexion</a>
+          <a href="register.html" class="btn btn-primary">Commencer</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-badge">
+            <span class="dot"></span>
+            Version 1.0 - Maintenant disponible
+          </div>
+          <h1>Gerez vos taches<br>avec <span class="gradient">simplicite</span></h1>
+          <p>Une application elegante pour organiser votre quotidien. Creez, suivez et completez vos taches en toute serenite.</p>
+          <div class="hero-actions">
+            <a href="register.html" class="btn btn-primary btn-lg">Creer un compte gratuit</a>
+            <a href="login.html" class="btn btn-secondary btn-lg">Se connecter</a>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="number">100%</div>
+              <div class="label">Gratuit</div>
+            </div>
+            <div class="hero-stat">
+              <div class="number">0</div>
+              <div class="label">Publicites</div>
+            </div>
+            <div class="hero-stat">
+              <div class="number">&lt;1s</div>
+              <div class="label">Temps de chargement</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="container">
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon purple">&#9889;</div>
+              <h3>Ultra rapide</h3>
+              <p>Interface instantanee sans delai. Vos donnees sont synchronisees en temps reel grace a Supabase.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon cyan">&#128274;</div>
+              <h3>Securise</h3>
+              <p>Authentification securisee et donnees protegees. Vos informations sont chifftrees et privees.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon pink">&#127912;</div>
+              <h3>Design moderne</h3>
+              <p>Interface elegante et intuitive. Responsive sur tous vos appareils, mobile comme desktop.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        Pulse &copy; 2026 &mdash; Propulse par Supabase
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script>
+    (async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) window.location.href = 'dashboard.html';
+    })();
+  </script>
+</body>
+</html>

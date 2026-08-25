@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription - Pulse</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">P</div>
+          <span class="logo-text">Pulse</span>
+        </a>
+        <div class="nav-links">
+          <a href="login.html" class="btn btn-ghost">Connexion</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="auth-wrapper">
+      <div class="auth-card fade-in">
+        <h1>Creer un compte</h1>
+        <p class="subtitle">Rejoignez Pulse et commencez des maintenant</p>
+
+        <div id="error-msg" class="auth-error"></div>
+
+        <form id="register-form">
+          <div class="form-group">
+            <label for="fullname">Nom complet</label>
+            <input type="text" id="fullname" class="form-input" placeholder="Jean Dupont" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-input" placeholder="vous@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" class="form-input" placeholder="6 caracteres minimum" minlength="6" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:14px;" id="register-btn">
+            Creer mon compte
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          Deja un compte ? <a href="login.html">Se connecter</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">Pulse &copy; 2026</div>
+    </footer>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    (async () => {
+      const session = await getSession();
+      if (session) { window.location.href = 'dashboard.html'; return; }
+
+      const form = document.getElementById('register-form');
+      const errorEl = document.getElementById('error-msg');
+      const btn = document.getElementById('register-btn');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorEl.classList.remove('show');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span>';
+
+        try {
+          await signUp(
+            document.getElementById('email').value,
+            document.getElementById('password').value,
+            document.getElementById('fullname').value
+          );
+          errorEl.textContent = 'Compte cree ! Verifiez votre email pour confirmer, puis connectez-vous.';
+          errorEl.style.background = 'rgba(34, 197, 94, 0.1)';
+          errorEl.style.borderColor = 'rgba(34, 197, 94, 0.2)';
+          errorEl.style.color = 'var(--success)';
+          errorEl.classList.add('show');
+          btn.disabled = false;
+          btn.textContent = 'Creer mon compte';
+          form.reset();
+        } catch (err) {
+          errorEl.textContent = err.message;
+          errorEl.classList.add('show');
+          btn.disabled = false;
+          btn.textContent = 'Creer mon compte';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
