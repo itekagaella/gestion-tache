@@ -2,19 +2,45 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Redirection...</title>
-  <script>
-    // GitHub Pages SPA redirect
-    var pathSegmentsToKeep = 0;
-    var l = window.location;
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-      l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-      l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-      (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-      l.hash
-    );
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - myTask</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body></body>
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="logo">
+          <svg class="logo-icon" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="34" y2="34">
+                <stop offset="0%" stop-color="#7e9fb0"/>
+                <stop offset="100%" stop-color="#a3c0cf"/>
+              </linearGradient>
+            </defs>
+            <rect width="34" height="34" rx="9" fill="url(#logo-grad)"/>
+            <path d="M10 17.5L14.5 22L24 12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="logo-text">myTask</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="page-404 fade-in">
+      <div>
+        <h1>404</h1>
+        <p>Cette page n'existe pas ou a ete deplacee.</p>
+        <a href="index.html" class="btn btn-primary btn-lg">Retour a l'accueil</a>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">myTask &copy; 2026</div>
+    </footer>
+  </div>
+</body>
 </html>

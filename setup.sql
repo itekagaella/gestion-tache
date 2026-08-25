@@ -1,4 +1,4 @@
--- Pulse - Supabase Setup
+-- myTask - Supabase Setup
 -- Executez ce script dans l'editeur SQL de votre dashboard Supabase
 
 -- 1. Creer la table des taches

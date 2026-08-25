@@ -3,12 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pulse - Votre espace productif</title>
+  <title>myTask - Votre espace productif</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-  <div class="bg-grid"></div>
+  <div class="bg-slideshow">
+    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2400&q=85&t=1'); opacity: 1; z-index: 1;"></div>
+    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2400&q=85&t=2')"></div>
+    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=2400&q=85&t=3')"></div>
+    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2400&q=85&t=4')"></div>
+    <div class="bg-slide" style="background-image: url('https://images.unsplash.com/photo-1600508774634-4e1153e3a12a?auto=format&fit=crop&w=2400&q=85&t=5')"></div>
+  </div>
   <div class="bg-glow bg-glow-1"></div>
   <div class="bg-glow bg-glow-2"></div>
 
@@ -16,8 +22,17 @@
     <nav class="navbar">
       <div class="container">
         <a href="index.html" class="logo">
-          <div class="logo-icon">P</div>
-          <span class="logo-text">Pulse</span>
+          <svg class="logo-icon" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="34" y2="34">
+                <stop offset="0%" stop-color="#7e9fb0"/>
+                <stop offset="100%" stop-color="#a3c0cf"/>
+              </linearGradient>
+            </defs>
+            <rect width="34" height="34" rx="9" fill="url(#logo-grad)"/>
+            <path d="M10 17.5L14.5 22L24 12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="logo-text">myTask</span>
         </a>
         <div class="nav-links">
           <a href="login.html" class="btn btn-ghost">Connexion</a>
@@ -33,8 +48,20 @@
             <span class="dot"></span>
             Version 1.0 - Maintenant disponible
           </div>
-          <h1>Gerez vos taches<br>avec <span class="gradient">simplicite</span></h1>
-          <p>Une application elegante pour organiser votre quotidien. Creez, suivez et completez vos taches en toute serenite.</p>
+          <div class="hero-text-container">
+            <h1 class="hero-text active" data-index="0">Gerez vos taches<br>avec <span class="gradient">simplicite</span></h1>
+            <h1 class="hero-text" data-index="1">Organisez votre <br><span class="gradient">productivite</span></h1>
+            <h1 class="hero-text" data-index="2">Collaborez en <br><span class="gradient">temps reel</span></h1>
+            <h1 class="hero-text" data-index="3">Suivez vos <br><span class="gradient">progres</span></h1>
+            <h1 class="hero-text" data-index="4">Atteignez vos <br><span class="gradient">objectifs</span></h1>
+          </div>
+          <div class="hero-desc-container">
+            <p class="hero-desc active" data-index="0">Une application elegante pour organiser votre quotidien. Creez, suivez et completez vos taches en toute serenite.</p>
+            <p class="hero-desc" data-index="1">Classez, priorisez et planifiez chaque tache. Votre espace de travail, toujours organise et clair.</p>
+            <p class="hero-desc" data-index="2">Travaillez avec votre equipe en direct. Modifications instantanees, zero retard.</p>
+            <p class="hero-desc" data-index="3">Statistiques detaillees et graphiques pour mesurer votre progression au fil du temps.</p>
+            <p class="hero-desc" data-index="4">De la planification a la realisation, myTask vous accompagne a chaque etape.</p>
+          </div>
           <div class="hero-actions">
             <a href="register.html" class="btn btn-primary btn-lg">Creer un compte gratuit</a>
             <a href="login.html" class="btn btn-secondary btn-lg">Se connecter</a>
@@ -59,18 +86,15 @@
       <section class="features">
         <div class="container">
           <div class="features-grid">
-            <div class="feature-card">
-              <div class="feature-icon purple">&#9889;</div>
+            <div class="feature-card fade-in stagger-1">
               <h3>Ultra rapide</h3>
               <p>Interface instantanee sans delai. Vos donnees sont synchronisees en temps reel grace a Supabase.</p>
             </div>
-            <div class="feature-card">
-              <div class="feature-icon cyan">&#128274;</div>
+            <div class="feature-card fade-in stagger-2">
               <h3>Securise</h3>
               <p>Authentification securisee et donnees protegees. Vos informations sont chifftrees et privees.</p>
             </div>
-            <div class="feature-card">
-              <div class="feature-icon pink">&#127912;</div>
+            <div class="feature-card fade-in stagger-3">
               <h3>Design moderne</h3>
               <p>Interface elegante et intuitive. Responsive sur tous vos appareils, mobile comme desktop.</p>
             </div>
@@ -81,7 +105,7 @@
 
     <footer class="footer">
       <div class="container">
-        Pulse &copy; 2026 &mdash; Propulse par Supabase
+        myTask &copy; 2026 &mdash; Propulse par Supabase
       </div>
     </footer>
   </div>
@@ -89,9 +113,61 @@
   <script src="js/config.js"></script>
   <script>
     (async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await supabaseClient.auth.getSession();
       if (session) window.location.href = 'dashboard.html';
     })();
+
+    const slides = document.querySelectorAll('.bg-slide');
+    const heroTexts = document.querySelectorAll('.hero-text');
+    const heroDescs = document.querySelectorAll('.hero-desc');
+    let current = 0;
+    const DURATION = 5000;
+    const FADE = 1200;
+
+    function hideSlide(el) {
+      return new Promise(resolve => {
+        el.style.transition = `opacity ${FADE}ms ease-in, transform ${FADE}ms ease-in`;
+        el.style.opacity = '0';
+        el.style.transform = 'scale(1.1)';
+        el.style.zIndex = '0';
+        el.addEventListener('transitionend', resolve, { once: true });
+      });
+    }
+
+    function showSlide(el) {
+      return new Promise(resolve => {
+        el.style.transform = 'scale(1.15)';
+        el.style.opacity = '0';
+        el.style.zIndex = '1';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.style.transition = `opacity ${FADE}ms ease-out, transform ${FADE}ms ease-out`;
+            el.style.opacity = '1';
+            el.style.transform = 'scale(1)';
+            el.addEventListener('transitionend', resolve, { once: true });
+          });
+        });
+      });
+    }
+
+    function changeText(index) {
+      heroTexts.forEach(t => t.classList.remove('active'));
+      heroDescs.forEach(d => d.classList.remove('active'));
+      heroTexts[index].classList.add('active');
+      heroDescs[index].classList.add('active');
+    }
+
+    async function nextSlide() {
+      const prev = slides[current];
+      current = (current + 1) % slides.length;
+      const next = slides[current];
+      await hideSlide(prev);
+      changeText(current);
+      await showSlide(next);
+      setTimeout(nextSlide, DURATION);
+    }
+
+    setTimeout(nextSlide, DURATION);
   </script>
 </body>
 </html>

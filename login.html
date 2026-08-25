@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion - Pulse</title>
+  <title>Connexion - myTask</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -16,8 +16,17 @@
     <nav class="navbar">
       <div class="container">
         <a href="index.html" class="logo">
-          <div class="logo-icon">P</div>
-          <span class="logo-text">Pulse</span>
+          <svg class="logo-icon" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="34" y2="34">
+                <stop offset="0%" stop-color="#7e9fb0"/>
+                <stop offset="100%" stop-color="#a3c0cf"/>
+              </linearGradient>
+            </defs>
+            <rect width="34" height="34" rx="9" fill="url(#logo-grad)"/>
+            <path d="M10 17.5L14.5 22L24 12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="logo-text">myTask</span>
         </a>
         <div class="nav-links">
           <a href="register.html" class="btn btn-primary">Commencer</a>
@@ -41,7 +50,7 @@
             <label for="password">Mot de passe</label>
             <input type="password" id="password" class="form-input" placeholder="Votre mot de passe" required>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%; padding:14px;" id="login-btn">
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:12px;" id="login-btn">
             Se connecter
           </button>
         </form>
@@ -53,7 +62,7 @@
     </div>
 
     <footer class="footer">
-      <div class="container">Pulse &copy; 2026</div>
+      <div class="container">myTask &copy; 2026</div>
     </footer>
   </div>
 

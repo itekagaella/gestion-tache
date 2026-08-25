@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Pulse</title>
+  <title>Dashboard - myTask</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
-  <div class="bg-grid"></div>
+<body class="dashboard-page">
   <div class="bg-glow bg-glow-1"></div>
   <div class="bg-glow bg-glow-2"></div>
   <div id="toast-container" class="toast-container"></div>
@@ -17,10 +16,23 @@
     <nav class="navbar">
       <div class="container">
         <a href="dashboard.html" class="logo">
-          <div class="logo-icon">P</div>
-          <span class="logo-text">Pulse</span>
+          <svg class="logo-icon" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="34" y2="34">
+                <stop offset="0%" stop-color="#7e9fb0"/>
+                <stop offset="100%" stop-color="#a3c0cf"/>
+              </linearGradient>
+            </defs>
+            <rect width="34" height="34" rx="9" fill="url(#logo-grad)"/>
+            <path d="M10 17.5L14.5 22L24 12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="logo-text">myTask</span>
         </a>
         <div class="nav-links">
+          <div class="live-clock" id="live-clock">
+            <span class="clock-dot"></span>
+            <span id="clock-time">--:--</span>
+          </div>
           <button class="btn btn-danger btn-sm" onclick="handleLogout()">
             Deconnexion
           </button>
@@ -30,7 +42,14 @@
 
     <div class="dashboard-header">
       <div class="container">
-        <h1 id="page-title">Bonjour</h1>
+        <div class="dashboard-greeting">
+          <h1 id="page-title">Bonjour</h1>
+          <div class="dashboard-meta">
+            <span class="dashboard-date" id="dashboard-date">--</span>
+            <span class="dashboard-sep">|</span>
+            <span class="dashboard-subtitle" id="dashboard-subtitle">Gerez vos taches efficacement</span>
+          </div>
+        </div>
         <div class="user-info">
           <div class="user-avatar" id="user-avatar">?</div>
           <div>
@@ -44,16 +63,28 @@
     <main class="container fade-in">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-label">Total</div>
+          <div class="stat-header">
+            <div class="stat-label">Total</div>
+            <div class="stat-dot accent"></div>
+          </div>
           <div class="stat-value accent" id="stat-total">0</div>
+          <div class="stat-bar"><div class="stat-bar-fill accent" id="bar-total"></div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">En cours</div>
+          <div class="stat-header">
+            <div class="stat-label">En cours</div>
+            <div class="stat-dot pink"></div>
+          </div>
           <div class="stat-value pink" id="stat-active">0</div>
+          <div class="stat-bar"><div class="stat-bar-fill pink" id="bar-active"></div></div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Terminees</div>
+          <div class="stat-header">
+            <div class="stat-label">Terminees</div>
+            <div class="stat-dot success"></div>
+          </div>
           <div class="stat-value success" id="stat-done">0</div>
+          <div class="stat-bar"><div class="stat-bar-fill success" id="bar-done"></div></div>
         </div>
       </div>
 
@@ -67,19 +98,20 @@
           </div>
         </div>
 
-        <form id="add-task-form" class="add-task-form">
-          <input type="text" id="task-input" class="form-input" placeholder="Ajouter une nouvelle tache..." required>
-          <select id="task-tag">
-            <option value="personal">Personnel</option>
-            <option value="work">Travail</option>
-            <option value="urgent">Urgent</option>
-          </select>
+        <form id="add-task-form" class="add-task-card">
+          <div class="add-task-input-group">
+            <input type="text" id="task-input" class="form-input" placeholder="Que voulez-vous accomplir ?" required>
+            <select id="task-tag">
+              <option value="personal">Personnel</option>
+              <option value="work">Travail</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
           <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
 
         <div class="task-list" id="task-list">
           <div class="empty-state">
-            <div class="icon">&#128221;</div>
             <h3>Chargement...</h3>
           </div>
         </div>
@@ -87,7 +119,7 @@
     </main>
 
     <footer class="footer">
-      <div class="container">Pulse &copy; 2026</div>
+      <div class="container">myTask &copy; 2026</div>
     </footer>
   </div>
 
