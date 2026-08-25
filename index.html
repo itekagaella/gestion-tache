@@ -113,7 +113,7 @@
   <script src="js/config.js"></script>
   <script>
     (async () => {
-      const { data: { session } } = await supabaseClient.auth.getSession();
+      const { data: { session } } = await window._supabaseClient.auth.getSession();
       if (session) window.location.href = 'dashboard.html';
     })();
 
