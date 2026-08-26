@@ -124,39 +124,6 @@
           </div>
         </div>
       </section>
-
-      <section class="chat-inbox-section">
-        <div class="chat-layout">
-          <div class="chat-inbox" id="chatInbox">
-            <div class="chat-inbox-header">
-              <h3>Messages</h3>
-              <span class="chat-inbox-badge" id="chatBadge">0</span>
-            </div>
-            <div class="chat-sessions" id="chatSessions">
-              <div class="chat-empty">
-                <div class="chat-empty-icon">💬</div>
-                Aucun message pour le moment
-              </div>
-            </div>
-          </div>
-          <div class="chat-view" id="chatView" style="display:none">
-            <div class="chat-view-header">
-              <button class="chat-view-back" id="chatBack">&#8592;</button>
-              <div>
-                <div class="chat-view-name" id="chatViewName">-</div>
-                <div class="chat-view-status">En ligne</div>
-              </div>
-            </div>
-            <div class="chat-view-messages" id="chatViewMessages"></div>
-            <div class="chat-view-footer">
-              <input type="text" class="chat-view-input" id="chatViewInput" placeholder="Repondre..." maxlength="500">
-              <button class="chat-view-send" id="chatViewSend" aria-label="Envoyer">
-                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
 
     <footer class="footer">
@@ -169,115 +136,19 @@
   <script src="js/app.js"></script>
   <script>initDashboard();</script>
 
-  <!-- Owner Chat Inbox -->
-  <script src="js/chat.js"></script>
-  <script>
-    (function(){
-      var sessions=document.getElementById('chatSessions'),
-          view=document.getElementById('chatView'),
-          inbox=document.getElementById('chatInbox'),
-          viewMsgs=document.getElementById('chatViewMessages'),
-          viewInput=document.getElementById('chatViewInput'),
-          viewSend=document.getElementById('chatViewSend'),
-          viewName=document.getElementById('chatViewName'),
-          backBtn=document.getElementById('chatBack'),
-          badge=document.getElementById('chatBadge');
-      var currentSession=null;
-
-      function timeAgo(d){
-        var now=new Date(),diff=Math.floor((now-d)/1000);
-        if(diff<60)return "a l'instant";
-        if(diff<3600)return Math.floor(diff/60)+'min';
-        if(diff<86400)return Math.floor(diff/3600)+'h';
-        return Math.floor(diff/86400)+'j';
-      }
-
-      async function loadSessions(){
-        var list=await ChatModule.getAllSessions();
-        if(!list.length){
-          sessions.innerHTML='<div class="chat-empty"><div class="chat-empty-icon">💬</div>Aucun message pour le moment</div>';
-          return;
-        }
-        sessions.innerHTML='';
-        var unread=0;
-        for(var i=0;i<list.length;i++){
-          var s=list[i];
-          var msgs=await ChatModule.getSessionMessages(s.session_id);
-          var last=msgs[msgs.length-1];
-          var count=0;
-          for(var j=0;j<msgs.length;j++){
-            if(msgs[j].sender_type==='visitor'&&!msgs[j].read) count++;
-          }
-          unread+=count;
-          var initials=s.sender_name.charAt(0).toUpperCase();
-          var item=document.createElement('div');
-          item.className='chat-session-item';
-          item.innerHTML='<div class="chat-session-avatar">'+initials+'</div>'
-            +'<div class="chat-session-info">'
-            +'<div class="chat-session-name">'+s.sender_name+(count?' <span style="color:var(--danger);font-size:11px">('+count+')</span>':'')+'</div>'
-            +'<div class="chat-session-preview">'+(last?last.content:'')+'</div>'
-            +'</div>'
-            +'<div class="chat-session-time">'+(last?timeAgo(new Date(last.created_at)):'')+'</div>';
-          (function(sid,name){
-            item.addEventListener('click',function(){openChat(sid,name);});
-          })(s.session_id,s.sender_name);
-          sessions.appendChild(item);
-        }
-        if(unread>0){badge.textContent=unread;badge.classList.add('show');}
-        else badge.classList.remove('show');
-      }
-
-      async function openChat(sid,name){
-        currentSession=sid;
-        viewName.textContent=name;
-        view.style.display='flex';
-        inbox.style.display='none';
-        await ChatModule.markRead(sid);
-        var msgs=await ChatModule.getSessionMessages(sid);
-        viewMsgs.innerHTML='';
-        msgs.forEach(function(m){addViewMsg(m);});
-        loadSessions();
-      }
-
-      function addViewMsg(m){
-        var div=document.createElement('div');
-        div.className='wa-msg wa-msg-'+m.sender_type;
-        var t=new Date(m.created_at);
-        var time=t.getHours().toString().padStart(2,'0')+':'+t.getMinutes().toString().padStart(2,'0');
-        div.innerHTML='<span class="wa-msg-name">'+m.sender_name+'</span>'+m.content+'<span class="wa-msg-time">'+time+'</span>';
-        viewMsgs.appendChild(div);
-        viewMsgs.scrollTop=viewMsgs.scrollHeight;
-      }
-
-      async function sendReply(){
-        var text=viewInput.value.trim();
-        if(!text||!currentSession)return;
-        viewInput.value='';
-        var m=await ChatModule.sendMessage(text,'Support','owner');
-        if(m) addViewMsg(m);
-        loadSessions();
-      }
-
-      viewSend.addEventListener('click',sendReply);
-      viewInput.addEventListener('keydown',function(e){if(e.key==='Enter')sendReply();});
-
-      backBtn.addEventListener('click',function(){
-        view.style.display='none';
-        inbox.style.display='block';
-        currentSession=null;
-        loadSessions();
-      });
-
-      ChatModule.subscribeAll(function(m){
-        if(m.sender_type==='visitor'){
-          if(currentSession===m.session_id) addViewMsg(m);
-          loadSessions();
-        }
-      });
-
-      loadSessions();
-    })();
-  </script>
+  <!-- WhatsApp Button -->
+  <a href="https://wa.me/25776871111?text=Bonjour%2C%20je%20vous%20ecris%20depuis%20myTask"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="whatsapp-float"
+     aria-label="Contactez-nous sur WhatsApp">
+    <span class="whatsapp-float-tooltip">Besoin d'aide ?</span>
+    <span class="whatsapp-float-icon">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.058 9.374L1.054 30.69l5.532-1.742A15.9 15.9 0 0 0 16.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.318 22.594c-.39 1.096-1.932 2.006-3.158 2.27-.838.18-1.934.322-5.61-1.206-4.706-1.952-7.732-6.73-7.964-7.044-.224-.314-1.876-2.498-1.876-4.764 0-2.266 1.19-3.378 1.612-3.84.39-.428.924-.558 1.23-.558.298 0 .584.002.84.016.27.012.63-.102.984.754.39.952 1.332 3.236 1.446 3.466.114.23.19.5.038.796-.152.308-.286.498-.528.768-.242.27-.468.478-.71.726-.22.224-.47.462-.198.866.266.396 1.184 1.952 2.54 3.162 1.744 1.558 3.168 2.042 3.676 2.27.396.178.822.1 1.078-.214.266-.324.59-.862.924-1.386.236-.372.534-.42.894-.284.364.13 2.306 1.084 2.7 1.28.396.196.66.294.756.458.096.164.096.95-.294 1.87z"/>
+      </svg>
+    </span>
+  </a>
 
   <!-- Weather Widget -->
   <script>
