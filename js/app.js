@@ -1,3 +1,13 @@
+const GS_URL = 'https://script.google.com/macros/s/AKfycbwXSfes7lz6vTsB0N6_XNlvQkx4ZshqSSipObFJ4XRSW3TTJh18JYFtXPhWSIdTWOyb/exec';
+
+function syncToSheet(payload) {
+  fetch(GS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+}
+
 async function fetchTasks(userId, filter = 'all') {
   let query = window._supabaseClient
     .from('tasks')
@@ -20,6 +30,7 @@ async function addTask(userId, title, tag) {
     .select()
     .single();
   if (error) throw error;
+  syncToSheet({ action: 'add', user_email: currentUser?.email || '', title, tag, task_id: data.id });
   return data;
 }
 
@@ -29,6 +40,7 @@ async function toggleTask(id, completed) {
     .update({ completed })
     .eq('id', id);
   if (error) throw error;
+  syncToSheet({ action: 'toggle', user_email: currentUser?.email || '', task_id: id, completed });
 }
 
 async function deleteTask(id) {
@@ -37,6 +49,7 @@ async function deleteTask(id) {
     .delete()
     .eq('id', id);
   if (error) throw error;
+  syncToSheet({ action: 'delete', user_email: currentUser?.email || '', task_id: id });
 }
 
 function showToast(message, type = 'success') {
