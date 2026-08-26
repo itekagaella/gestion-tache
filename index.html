@@ -170,18 +170,41 @@
     setTimeout(nextSlide, DURATION);
   </script>
 
-  <!-- WhatsApp Floating Button -->
-  <a href="https://wa.me/NUMERO_WHATSAPP?text=Bonjour%2C%20j%27ai%20une%20question%20concernant%20myTask"
-     target="_blank"
-     rel="noopener noreferrer"
-     class="whatsapp-float"
-     aria-label="Contactez-nous sur WhatsApp">
-    <span class="whatsapp-float-tooltip">Besoin d'aide ?</span>
-    <span class="whatsapp-float-icon">
-      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.058 9.374L1.054 30.69l5.532-1.742A15.9 15.9 0 0 0 16.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.318 22.594c-.39 1.096-1.932 2.006-3.158 2.27-.838.18-1.934.322-5.61-1.206-4.706-1.952-7.732-6.73-7.964-7.044-.224-.314-1.876-2.498-1.876-4.764 0-2.266 1.19-3.378 1.612-3.84.39-.428.924-.558 1.23-.558.298 0 .584.002.84.016.27.012.63-.102.984.754.39.952 1.332 3.236 1.446 3.466.114.23.19.5.038.796-.152.308-.286.498-.528.768-.242.27-.468.478-.71.726-.22.224-.47.462-.198.866.266.396 1.184 1.952 2.54 3.162 1.744 1.558 3.168 2.042 3.676 2.27.396.178.822.1 1.078-.214.266-.324.59-.862.924-1.386.236-.372.534-.42.894-.284.364.13 2.306 1.084 2.7 1.28.396.196.66.294.756.458.096.164.096.95-.294 1.87z"/>
-      </svg>
-    </span>
-  </a>
+  <!-- WhatsApp Chat Widget -->
+  <div class="wa-widget" id="waWidget">
+    <div class="wa-chatbox" id="waChatbox">
+      <div class="wa-chatbox-header">
+        <div class="wa-chatbox-avatar">
+          <svg viewBox="0 0 32 32"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.058 9.374L1.054 30.69l5.532-1.742A15.9 15.9 0 0 0 16.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.318 22.594c-.39 1.096-1.932 2.006-3.158 2.27-.838.18-1.934.322-5.61-1.206-4.706-1.952-7.732-6.73-7.964-7.044-.224-.314-1.876-2.498-1.876-4.764 0-2.266 1.19-3.378 1.612-3.84.39-.428.924-.558 1.23-.558.298 0 .584.002.84.016.27.012.63-.102.984.754.39.952 1.332 3.236 1.446 3.466.114.23.19.5.038.796-.152.308-.286.498-.528.768-.242.27-.468.478-.71.726-.22.224-.47.462-.198.866.266.396 1.184 1.952 2.54 3.162 1.744 1.558 3.168 2.042 3.676 2.27.396.178.822.1 1.078-.214.266-.324.59-.862.924-1.386.236-.372.534-.42.894-.284.364.13 2.306 1.084 2.7 1.28.396.196.66.294.756.458.096.164.096.95-.294 1.87z"/></svg>
+        </div>
+        <div class="wa-chatbox-info">
+          <h4>myTask Support</h4>
+          <span>En ligne</span>
+        </div>
+      </div>
+      <div class="wa-chatbox-body">
+        <div class="wa-chatbox-bubble">Bonjour ! Comment puis-je vous aider ?</div>
+      </div>
+      <div class="wa-chatbox-footer">
+        <input type="text" class="wa-chatbox-input" id="waInput" placeholder="Tapez votre message..." maxlength="500">
+        <button class="wa-chatbox-send" id="waSend" aria-label="Envoyer">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+    <button class="wa-widget-btn" id="waBtn" aria-label="Ouvrir le chat WhatsApp">
+      <svg viewBox="0 0 32 32"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.058 9.374L1.054 30.69l5.532-1.742A15.9 15.9 0 0 0 16.004 32C24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.318 22.594c-.39 1.096-1.932 2.006-3.158 2.27-.838.18-1.934.322-5.61-1.206-4.706-1.952-7.732-6.73-7.964-7.044-.224-.314-1.876-2.498-1.876-4.764 0-2.266 1.19-3.378 1.612-3.84.39-.428.924-.558 1.23-.558.298 0 .584.002.84.016.27.012.63-.102.984.754.39.952 1.332 3.236 1.446 3.466.114.23.19.5.038.796-.152.308-.286.498-.528.768-.242.27-.468.478-.71.726-.22.224-.47.462-.198.866.266.396 1.184 1.952 2.54 3.162 1.744 1.558 3.168 2.042 3.676 2.27.396.178.822.1 1.078-.214.266-.324.59-.862.924-1.386.236-.372.534-.42.894-.284.364.13 2.306 1.084 2.7 1.28.396.196.66.294.756.458.096.164.096.95-.294 1.87z"/></svg>
+    </button>
+  </div>
+  <script>
+    (function(){
+      var btn=document.getElementById('waBtn'),box=document.getElementById('waChatbox'),
+          input=document.getElementById('waInput'),send=document.getElementById('waSend');
+      btn.addEventListener('click',function(){box.classList.toggle('open');btn.classList.toggle('active');});
+      function openWa(){var m=input.value.trim();if(!m)return;window.open('https://wa.me/25776871111?text='+encodeURIComponent(m),'_blank');}
+      send.addEventListener('click',openWa);
+      input.addEventListener('keydown',function(e){if(e.key==='Enter')openWa();});
+    })();
+  </script>
 </body>
 </html>
