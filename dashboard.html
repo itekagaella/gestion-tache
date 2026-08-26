@@ -57,6 +57,14 @@
             <div class="user-email" id="user-email">-</div>
           </div>
         </div>
+        <div class="weather-card" id="weather-card">
+          <div class="weather-icon" id="weather-icon">--</div>
+          <div class="weather-details">
+            <div class="weather-temp" id="weather-temp">--°</div>
+            <div class="weather-desc" id="weather-desc">Chargement...</div>
+            <div class="weather-location" id="weather-location"></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -127,6 +135,40 @@
   <script src="js/auth.js"></script>
   <script src="js/app.js"></script>
   <script>initDashboard();</script>
+
+  <!-- Weather Widget -->
+  <script>
+    (function(){
+      var WMO={0:{d:'Clear sky',e:'\u2600\ufe0f'},1:{d:'Mostly clear',e:'\ud83c\udf24\ufe0f'},2:{d:'Partly cloudy',e:'\u26c5'},3:{d:'Overcast',e:'\u2601\ufe0f'},45:{d:'Fog',e:'\ud83c\udf2b\ufe0f'},48:{d:'Rime fog',e:'\ud83c\udf2b\ufe0f'},51:{d:'Light drizzle',e:'\ud83c\udf26\ufe0f'},53:{d:'Drizzle',e:'\ud83c\udf26\ufe0f'},55:{d:'Heavy drizzle',e:'\ud83c\udf27\ufe0f'},61:{d:'Light rain',e:'\ud83c\udf27\ufe0f'},63:{d:'Rain',e:'\ud83c\udf27\ufe0f'},65:{d:'Heavy rain',e:'\ud83c\udf27\ufe0f'},71:{d:'Light snow',e:'\ud83c\udf28\ufe0f'},73:{d:'Snow',e:'\ud83c\udf28\ufe0f'},75:{d:'Heavy snow',e:'\ud83c\udf28\ufe0f'},77:{d:'Snow grains',e:'\ud83c\udf28\ufe0f'},80:{d:'Light showers',e:'\ud83c\udf26\ufe0f'},81:{d:'Showers',e:'\ud83c\udf27\ufe0f'},82:{d:'Heavy showers',e:'\ud83c\udf27\ufe0f'},85:{d:'Light snow showers',e:'\ud83c\udf28\ufe0f'},86:{d:'Snow showers',e:'\ud83c\udf28\ufe0f'},95:{d:'Thunderstorm',e:'\u26c8\ufe0f'},96:{d:'Thunderstorm + hail',e:'\u26c8\ufe0f'},99:{d:'Thunderstorm + heavy hail',e:'\u26c8\ufe0f'}};
+      var iconEl=document.getElementById('weather-icon'),tempEl=document.getElementById('weather-temp'),
+          descEl=document.getElementById('weather-desc'),locEl=document.getElementById('weather-location');
+      function render(lat,lon,data){
+        var c=data.current_weather||data.current||{};
+        var code=c.weathercode!=null?c.weathercode:(c.condition!=null?c.condition.code:0);
+        var t=c.temperature!=null?c.temperature:(c.temperature_2m!=null?c.temperature_2m:null);
+        var w=WMO[code]||{d:'Unknown',e:'\ud83c\udf24\ufe0f'};
+        iconEl.textContent=w.e;
+        tempEl.textContent=t!=null?Math.round(t)+'\u00b0':'--\u00b0';
+        descEl.textContent=w.d;
+        locEl.textContent=lat.toFixed(1)+'\u00b0, '+lon.toFixed(1)+'\u00b0';
+      }
+      function fetchWeather(lat,lon){
+        var url='https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,weather_code,wind_speed_10m&timezone=auto';
+        fetch(url).then(function(r){return r.json()}).then(function(d){render(lat,lon,d)}).catch(function(){
+          iconEl.textContent='\u2753';descEl.textContent='Impossible de charger';locEl.textContent='';
+        });
+      }
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function(p){
+          fetchWeather(p.coords.latitude,p.coords.longitude);
+        },function(){
+          fetchWeather(-4.32,15.31);
+        });
+      } else {
+        fetchWeather(-4.32,15.31);
+      }
+    })();
+  </script>
 
   <!-- WhatsApp Chat Widget -->
   <div class="wa-widget" id="waWidget">
